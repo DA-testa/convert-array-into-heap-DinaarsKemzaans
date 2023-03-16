@@ -2,11 +2,22 @@
 
 
 def build_heap(info):
+    garums = len(info)
     swaps = []
-    # TODO: Creat heap and heap sort
-    # try to achieve  O(n) and not O(n2)
-
-
+    for i in range(garums, -1, -1):
+        j = i
+        while True:
+            zars = j*2 + 1 # left child
+            if zars >= garums:
+                break
+            if zars+1 < garums and info[zars+1] < info[zars]:
+                zars = zars+1 # right child
+            if info[j] > info[zars]:
+                swaps.append((j, zars))
+                info[j], info[zars] = info[zars], info[j]
+                j = zars
+            else:
+                break
     return swaps
 
 
@@ -23,15 +34,13 @@ def main():
         return
     if "F" in option:
         file = str(input())
-        file = "test/" + str(file)
+        file = "tests/" + str(file)
         with open(file, 'r') as pakete:
-            n = int(pakete.readLine())
-            data = list(map(int, input().split()))
+            n = int(pakete.readline())
+            data = list(map(int, pakete.readline().split()))
         assert len(data) == n
         swaps = build_heap(data)
         print(len(swaps))
-        for i, j in swaps:
-            print(i, j)
         return   
 
 if __name__ == "__main__":
