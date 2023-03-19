@@ -7,11 +7,11 @@ def build_heap(info):
     for i in range(garums, -1, -1):
         j = i
         while True:
-            zars = j*2 + 1 # left child
+            zars = j*2 + 1
             if zars >= garums:
                 break
             if zars+1 < garums and info[zars+1] < info[zars]:
-                zars = zars+1 # right child
+                zars = zars+1
             if info[j] > info[zars]:
                 swaps.append((j, zars))
                 info[j], info[zars] = info[zars], info[j]
