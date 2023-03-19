@@ -1,42 +1,47 @@
-# python3
+#Dinārs Kemzāns 221RDB321 17.grupa
 
 
-def build_heap(data):
+def build_heap(info):
+    garums = len(info)
     swaps = []
-    # TODO: Creat heap and heap sort
-    # try to achieve  O(n) and not O(n2)
-
-
+    for i in range(garums, -1, -1):
+        j = i
+        while True:
+            zars = j*2 + 1
+            if zars >= garums:
+                break
+            if zars+1 < garums and info[zars+1] < info[zars]:
+                zars = zars+1
+            if info[j] > info[zars]:
+                swaps.append((j, zars))
+                info[j], info[zars] = info[zars], info[j]
+                j = zars
+            else:
+                break
     return swaps
 
 
 def main():
-    
-    # TODO : add input and corresponding checks
-    # add another input for I or F 
-    # first two tests are from keyboard, third test is from a file
-
-
-    # input from keyboard
-    n = int(input())
-    data = list(map(int, input().split()))
-
-    # checks if lenght of data is the same as the said lenght
-    assert len(data) == n
-
-    # calls function to assess the data 
-    # and give back all swaps
-    swaps = build_heap(data)
-
-    # TODO: output how many swaps were made, 
-    # this number should be less than 4n (less than 4*len(data))
-
-
-    # output all swaps
-    print(len(swaps))
-    for i, j in swaps:
-        print(i, j)
-
+    option = str(input())
+    if "I" in option:
+        n = int(input())
+        data = list(map(int, input().split()))
+        assert len(data) == n
+        swaps = build_heap(data)
+        print(len(swaps))
+        for i, j in swaps:
+            print(i, j)
+        return
+    if "F" in option:
+        file = str(input())
+        file = "tests/" + str(file)
+        with open(file, 'r') as pakete:
+            n = int(pakete.readline())
+            data = list(map(int, pakete.readline().split()))
+        assert len(data) == n
+        swaps = build_heap(data)
+        print(len(swaps))
+        return   
 
 if __name__ == "__main__":
     main()
